@@ -9,7 +9,8 @@ app.get('/download', (req, res) => {
     return res.status(400).send('Error: videoURL query parameter is required.');
   }
 
-  const ytdlp = spawn('yt-dlp', ['-f', 'best', '-o', '-', videoURL], {
+  // yt-dlp command with --geo-bypass
+  const ytdlp = spawn('yt-dlp', ['--geo-bypass', '-f', 'best', '-o', '-', videoURL], {
     env: { ...process.env, YTDL_NO_UPDATE: '1' }
   });
 
