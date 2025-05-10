@@ -1,7 +1,7 @@
 {
   "name": "youtube-downloader-api",
   "version": "1.0.0",
-  "description": "A simple API to download YouTube videos using Node.js, Express, and ytdl-core.",
+  "description": "A simple API to download YouTube videos using Node.js, Express, and yt-dlp.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -11,12 +11,11 @@
     "download",
     "api",
     "express",
-    "@distube/ytdl-core"
+    "yt-dlp"
   ],
-  "author": "Your Name",
+  "author": "Prince",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "ytdl-core": "^4.11.1"
+    "express": "^4.18.2"
   }
 }
