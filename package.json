@@ -1,7 +1,7 @@
 {
   "name": "youtube-downloader-api",
-  "version": "1.0.0",
-  "description": "A simple API to download YouTube videos using Node.js, Express, and yt-dlp.",
+  "version": "1.0.1",
+  "description": "Download YouTube videos from any country using yt-dlp.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -10,8 +10,8 @@
     "youtube",
     "download",
     "api",
-    "express",
-    "yt-dlp"
+    "yt-dlp",
+    "geo-bypass"
   ],
   "author": "Prince",
   "license": "MIT",
