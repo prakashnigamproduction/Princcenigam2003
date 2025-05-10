@@ -11,7 +11,7 @@
     "download",
     "api",
     "express",
-    "ytdl-core"
+    "@distube/ytdl-core"
   ],
   "author": "Your Name",
   "license": "MIT",
