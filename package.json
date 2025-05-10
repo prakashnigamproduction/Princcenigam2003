@@ -1,12 +1,22 @@
 {
-  "name": "youtube-video-downloader-api",
+  "name": "youtube-downloader-api",
   "version": "1.0.0",
-  "description": "A simple API to download YouTube videos",
+  "description": "A simple API to download YouTube videos using Node.js, Express, and ytdl-core.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
+  "keywords": [
+    "youtube",
+    "download",
+    "api",
+    "express",
+    "ytdl-core"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "ytdl-core": "^4.9.1"
+    "express": "^4.18.2",
+    "ytdl-core": "^4.11.1"
   }
+}
