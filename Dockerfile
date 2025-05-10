@@ -2,11 +2,13 @@ FROM node:14
 
 WORKDIR /app
 
-COPY package*.json./package*.json
+# Space fix after package*.json and before ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY..
+# Space fix after COPY
+COPY . .
 
 RUN npm run build
 
