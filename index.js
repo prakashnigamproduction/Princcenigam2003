@@ -1,33 +1,43 @@
 const express = require('express');
-const ytdl = require('@distube/ytdl-core');
+const { spawn } = require('child_process');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get('/download', async (req, res) => {
+app.get('/download', (req, res) => {
   const videoURL = req.query.videoURL;
   if (!videoURL) {
     return res.status(400).send('Error: videoURL query parameter is required.');
   }
 
-  try {
-    // वीडियो की जानकारी प्राप्त करें
-    const info = await ytdl.getInfo(videoURL);
-    // वीडियो का title निकालें और filename-friendly format में बदलें
-    const title = info.videoDetails.title.replace(/[^\w\s]/gi, '');
-    res.header('Content-Disposition', `attachment; filename="${title}.mp4"`);
-    // वीडियो स्ट्रीम को response pipe करें
-    ytdl(videoURL, { quality: 'highestvideo' }).pipe(res);
-  } catch (error) {
-    console.error('Error in /download:', error);
-    res.status(500).send('Error processing your request.');
-  }
+  const ytdlp = spawn('yt-dlp', ['-f', 'best', '-o', '-', videoURL], {
+    env: { ...process.env, YTDL_NO_UPDATE: '1' }
+  });
+
+  res.header('Content-Disposition', 'attachment; filename="video.mp4"');
+  res.header('Content-Type', 'video/mp4');
+
+  ytdlp.stdout.pipe(res);
+
+  ytdlp.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  ytdlp.on('error', (err) => {
+    console.error('yt-dlp error:', err);
+    res.status(500).send('Error processing the download.');
+  });
+
+  ytdlp.on('close', (code) => {
+    if (code !== 0) {
+      console.error(`yt-dlp exited with code ${code}`);
+    }
+  });
 });
 
-// बेस रूट पर welcome message
 app.get('/', (req, res) => {
   res.send(`
-    <h1>Welcome to the YouTube Downloader API!</h1>
-    <p>Use the endpoint <code>/download?videoURL=YOUTUBE_VIDEO_URL</code> to download a video.</p>
+    <h1>YouTube Downloader API</h1>
+    <p>Use <code>/download?videoURL=VIDEO_URL</code> to download a video.</p>
   `);
 });
 
